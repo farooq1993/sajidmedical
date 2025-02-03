@@ -1,0 +1,18 @@
+[2025-02-03 12:24:18] ERROR 'Request' object has no attribute 'otp_obj_list'
+[2025-02-03 12:24:18] ERROR Exception raised in send_otp_helper as 'Request' object has no attribute 'otp_obj_list'
+Traceback (most recent call last):
+  File "D:\medical_services\env\Lib\site-packages\rest_framework\request.py", line 416, in __getattr__
+    return getattr(self._request, attr)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute 'otp_obj_list'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\medical_services\healthcare\common\views.py", line 34, in post
+    request_data["otp_obj_list"] = request.otp_obj_list
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "D:\medical_services\env\Lib\site-packages\rest_framework\request.py", line 418, in __getattr__
+    return self.__getattribute__(attr)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Request' object has no attribute 'otp_obj_list'

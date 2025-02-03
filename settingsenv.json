@@ -1,0 +1,87 @@
+{
+    "SECRET_KEY" : "django-insecure-ck-nb-22schi=yw(a%-!enj%ijv8t^&=y^)mi_ufy!0y_-t#f2",
+    "ALLOWED_HOSTS" : [
+        "*"
+    ],
+    "AUTH_USER_MODEL":"healthcare.User",
+    "INSTALLED_APPS": [
+        "django.contrib.admin",
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+        "django.contrib.staticfiles",
+        "oauth2_provider",
+        "rest_framework",
+        "corsheaders",
+        "healthcare"
+      ],
+      "MIDDLEWARE": [
+        "django.middleware.security.SecurityMiddleware",
+        "corsheaders.middleware.CorsMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware"
+      ],
+      "WSGI_APPLICATION": "commons.wsgi.application",
+      "TEMPLATES": [
+        {
+          "BACKEND": "django.template.backends.django.DjangoTemplates",
+          "DIRS": [],
+          "APP_DIRS": true,
+          "OPTIONS": {
+            "context_processors": [
+              "django.template.context_processors.debug",
+              "django.template.context_processors.request",
+              "django.contrib.auth.context_processors.auth",
+              "django.contrib.messages.context_processors.messages"
+            ]
+          }
+        }
+      ],
+      "AUTH_PASSWORD_VALIDATORS": [
+        {
+          "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+        },
+        {
+          "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"
+        },
+        {
+          "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"
+        },
+        {
+          "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"
+        }
+      ],
+      
+      "LANGUAGE_CODE": "en-us",
+      "TIME_ZONE": "UTC",
+      "USE_I18N": true,
+      "USE_TZ": true,
+      "STATIC_URL": "/static/",
+      "DATABASES": {
+        "default": {
+          "ENGINE": "django.db.backends.postgresql",
+          "NAME": "healthcare",                      
+          "USER": "postgres",
+          "PASSWORD": "123456",  
+          "HOST": "",
+          "PORT": "5432"
+      }
+  },
+  "SERVER_PROTOCOLS" : "http://",
+  "AUTH_TOKEN_URL" : "127.0.0.1:8000/o/token/",
+  "AUTH_TOKEN_PASSWORD" : "Jan2024#medical_services$#98430045",
+  "AUTH_CLIENT_ID" : "1fPdGOpJ0ydvAbBHPeExTtQa1Ft7IMrXEoTYCmFl",
+  "AUTH_SECRET_ID" : "B91KwMEv1RoKYtCr2ZMyOi3eAkcr3jl3xdaEtNcTugS3u5xALacn1Vv1pTIRqbB213TIYqe5TyYtpf0VO0Z5acwKRtLpa60bbeSc8vXx7mOYwdjbyNWY8rGLxQr0vHPF",
+  "REVOKE_TOKEN" : "http://127.0.0.1:8000/o/revoke_token/",
+  "FREESEARCH_PASSWORD": "sajid@2024",
+  "FREESEARCH_USERNAME": "sajidAli",
+  "HEALTHCARE_LOG_FILENAME": "logs/heathcare_errors.log",
+  "HEALTHCARE_EXCEPTION_LOGFILE_NAME": "logs/healthcare_exceptions.log",
+  "HEALTHCARE_DEV_LOGFILE_NAME": "logs/healthcare_dev.log",
+  "HEALTHCARE_ERROR": "logs/healthcare_error.log"
+}

@@ -1,0 +1,6 @@
+{
+    "SERVER_PROTOCOLS" : "https://",
+    "AUTH_TOKEN_URL" : "127.0.0.1:8080/o/token/",
+    "REVOKE_TOKEN" : "http://127.0.0.1:8000/o/revoke_token/"
+
+}
