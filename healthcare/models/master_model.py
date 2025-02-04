@@ -91,6 +91,7 @@ class User(AbstractUser):
 
     groups = models.ManyToManyField(Group, related_name="healthcare_user_groups", blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name="healthcare_user_permissions", blank=True)
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.user_type

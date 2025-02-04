@@ -50,7 +50,7 @@ DEBUG = True
 ALLOWED_HOSTS = settings_details['ALLOWED_HOSTS']
 
 #Custom Auth User
-AUTH_USER_MODEL = settings_details['AUTH_USER_MODEL']
+settings_details['AUTH_USER_MODEL'] = 'healthcare.User'
 
 # Application definition
 INSTALLED_APPS = settings_details['INSTALLED_APPS']

@@ -66,7 +66,7 @@
           "ENGINE": "django.db.backends.postgresql_psycopg2",
           "NAME": "medical",                      
           "USER": "healthcare",
-          "PASSWORD": "medical@8828",
+          "PASSWORD": "123456",
           "HOST": "localhost",
           "PORT": ""
       }

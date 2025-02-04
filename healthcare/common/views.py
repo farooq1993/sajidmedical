@@ -11,6 +11,9 @@ from django.conf import settings
 import requests
 from healthcare.utils import error_messages,shared,logging_utils
 from reportlab.pdfgen import canvas
+from django.contrib.auth import authenticate, login
+from healthcare.models.master_model import TransactionMaster, User
+
 class SendOTP(APIView):
     parser_classes = (JSONParser,)
 
@@ -23,18 +26,43 @@ class SendOTP(APIView):
             return Response(data=error_messages.SOMETHING_WENT_WRONG,status=status.HTTP_400_BAD_REQUEST)
         
 class UserRegistration(APIView):
-    print("-----Regis---")
+    def post(self, request):
+        # Extract data from the request
+        data = request.data
+        username = data.get('username')
+        password = data.get('password')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+
+        # Ensure required fields are provided
+        if not all([username, password, first_name, last_name]):
+            return Response({"msg": "All fields are required!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Create a user object
+            user = User(
+                username=username,
+                first_name=first_name,
+                last_name=last_name
+            )
+            # Set the password using set_password to hash it before saving
+            user.set_password(password)
+            user.save()
+
+            return Response({"msg": "User created successfully!"}, status=status.HTTP_201_CREATED)
+        
+        except Exception as e:
+            return Response({"msg": f"Error: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
     #parser_classes = (JSONParser,)
     #@otp_validation
-    def post(self,request):
-        import pdb ;pdb.set_trace();
-        try:
-            request_data = request.data
-            print("data", request_data)
-            #request_data["otp_obj_list"] = request.otp_obj_list
-            return helper.user_registration(self,request_data)
-        except Exception as ex:
-            return logging_utils.main_exception(view="send_otp_helper",exception=str(ex))
+    # def post(self,request):
+    #     try:
+    #         request_data = request.data
+    #         print("data", request_data)
+    #         #request_data["otp_obj_list"] = request.otp_obj_list
+    #         return helper.user_registration(self,request_data)
+    #     except Exception as ex:
+    #         return logging_utils.main_exception(view="send_otp_helper",exception=str(ex))
 
 
 class GetAppointment(APIView):
@@ -85,13 +113,32 @@ class LoginByOTP(APIView):
         except Exception as ex:
             return Response(data=error_messages.SOMETHING_WENT_WRONG,status=status.HTTP_400_BAD_REQUEST)
 class LoginByPassword(APIView):
-    parser_classes = (JSONParser,)
-
     def post(self, request):
-        try:
-            return helper.login_by_password(self, request.data)
-        except Exception as ex:
-            return logging_utils.main_exception(view="login_by_password",exception=str(ex))
+        data = request.data
+        # Ensure 'username' and 'password' are provided
+        if 'username' not in data or 'password' not in data:
+            return Response({'msg': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        print(data)  # You can remove this in production
+
+        # Authenticate the user
+        user = authenticate(request, username=data['username'], password=data['password'])
+        
+        if user:
+            login(request, user)
+            # Serialize the user data
+            #user_data = UserSerializer(user).data
+            return Response({'msg': 'User Login successful', 'user': user}, status=status.HTTP_200_OK)
+        else:
+            return Response({'msg': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+            
+    # parser_classes = (JSONParser,)
+
+    # def post(self, request):
+    #     try:
+    #         return helper.login_by_password(self, request.data)
+    #     except Exception as ex:
+    #         return logging_utils.main_exception(view="login_by_password",exception=str(ex))
 
 class SetPassword(APIView):
     authentication_classes = (OAuth2Authentication,)

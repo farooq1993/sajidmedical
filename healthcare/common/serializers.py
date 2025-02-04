@@ -6,8 +6,10 @@ from healthcare.utils import shared
 
 class MasterModelSerializers(serializers.ModelSerializer):
     class Meta:
-        model =User
+        model= User
         fields = "__all__"
+        
+
 
 
     # def insert(self,request):
