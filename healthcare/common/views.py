@@ -114,23 +114,27 @@ class LoginByOTP(APIView):
             return Response(data=error_messages.SOMETHING_WENT_WRONG,status=status.HTTP_400_BAD_REQUEST)
 class LoginByPassword(APIView):
     def post(self, request):
-        data = request.data
-        # Ensure 'username' and 'password' are provided
-        if 'username' not in data or 'password' not in data:
-            return Response({'msg': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            data = request.data
+            print("Received data:", data)  
 
-        print(data)  # You can remove this in production
+            if 'username' not in data or 'password' not in data:
+                return Response({'msg': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Authenticate the user
-        user = authenticate(request, username=data['username'], password=data['password'])
+            user = authenticate(request, username=data['username'], password=data['password'])
+            print("Authenticated user:", user)  # Debugging output
+
+            if user:
+                login(request, user)
+                return Response({'msg': 'User Login successful', 'user': str(user)}, status=status.HTTP_200_OK)
+            else:
+                return Response({'msg': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
         
-        if user:
-            login(request, user)
-            # Serialize the user data
-            #user_data = UserSerializer(user).data
-            return Response({'msg': 'User Login successful', 'user': user}, status=status.HTTP_200_OK)
-        else:
-            return Response({'msg': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            import traceback
+            print("Exception during login:", traceback.format_exc())  # Print full error traceback
+            return Response({'msg': 'Internal Server Error', 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
             
     # parser_classes = (JSONParser,)
 

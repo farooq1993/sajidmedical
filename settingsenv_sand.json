@@ -3,7 +3,6 @@
     "ALLOWED_HOSTS" : [
         "*","195.35.45.4","localhost"
     ],
-    "AUTH_USER_MODEL":"healthcare.User",
     "INSTALLED_APPS": [
         "django.contrib.admin",
         "django.contrib.auth",
@@ -65,7 +64,7 @@
         "default": {
           "ENGINE": "django.db.backends.postgresql_psycopg2",
           "NAME": "medical",                      
-          "USER": "healthcare",
+          "USER": "postgres",
           "PASSWORD": "123456",
           "HOST": "localhost",
           "PORT": ""

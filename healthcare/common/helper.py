@@ -664,3 +664,15 @@ def get_prescription_list(self,request):
     except Exception as ex:
         logging_utils.logger_info(f"helper=common_helper, func=get_prescription_list, exception={ex}")
         return logging_utils.main_exception(self.get_view_name(), ex)
+    
+from django.contrib.auth.backends import ModelBackend
+from healthcare.models.master_model import User
+
+class CustomAuthBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        try:
+            user = User.objects.get(username=username)  # Use correct field
+            if user.check_password(password):
+                return user
+        except User.DoesNotExist:
+            return None

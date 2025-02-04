@@ -52,7 +52,7 @@ class UserType(models.Model):
     class Meta:
         db_table = 'user_type'
 
-class User(AbstractUser):
+class CustomeUser(AbstractUser):
     DOCTOR = 'doctor'
     PATIENT = 'patient'
     
@@ -61,7 +61,7 @@ class User(AbstractUser):
         (PATIENT, 'Patient'),
     ]
 
-    user_name = models.CharField(max_length=130, default=None, null=True)
+    #user_name = models.CharField(max_length=130, default=None, null=True)
     first_name = models.CharField(max_length=130, default=None, null=True)
     last_name = models.CharField(max_length=130, default=None, null=True)
     full_name = models.CharField(max_length=130, default=None, null=True)
@@ -91,6 +91,7 @@ class User(AbstractUser):
 
     groups = models.ManyToManyField(Group, related_name="healthcare_user_groups", blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name="healthcare_user_permissions", blank=True)
+    USERNAME_FIELD = 'username'
     objects = CustomUserManager()
 
     def __str__(self):
@@ -131,7 +132,7 @@ class UserMaster(models.Model):
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     email_id = models.CharField(max_length=500, null=True)
-    user = models.ForeignKey(User, related_name='auth_user',  on_delete=models.SET_NULL,null=True)
+    #ser = models.ForeignKey(User, related_name='auth_user',  on_delete=models.SET_NULL,null=True)
     doctor = models.ForeignKey(to='self', related_name='user_master_doctor', on_delete=models.CASCADE,null=True)
     created_dt = models.DateTimeField(auto_now_add=True, null=True)
     updated_dt = models.DateTimeField(auto_now=True, null=True)

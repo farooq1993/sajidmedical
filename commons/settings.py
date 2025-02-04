@@ -49,7 +49,8 @@ DEBUG = True
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = settings_details['ALLOWED_HOSTS']
 
-#Custom Auth User
+# #Custom Auth User
+# AUTH_USER_MODEL = "healthcare.User"
 settings_details['AUTH_USER_MODEL'] = 'healthcare.User'
 
 # Application definition
@@ -113,6 +114,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
 #     )
 # }
+
+AUTHENTICATION_BACKENDS = [
+    #'healthcare.backends.CustomAuthBackend',  # Custom backend
+    'healthcare.common.helper.CustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Default Django backend
+]
 
 OAUTH2_PROVIDER = {
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
